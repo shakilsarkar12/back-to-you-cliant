@@ -5,6 +5,7 @@ import animationData from "../../assets/register-animation.json";
 import {updateProfile } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import toast from "react-hot-toast";
+import GoogleBtn from "../../Components/GoogleBtn/GoogleBtn";
 
 export default function Register() {
     const {createUser} = useContext(AuthContext)
@@ -51,17 +52,24 @@ export default function Register() {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
+        const creationTime = user?.metadata?.creationTime;
+        const lastSignInTime = user?.metadata?.lastSignInTime;
+        const emailVerified = user?.emailVerified;
 
         // 🔥 Update Profile with Name & Photo
         updateProfile(user, {
           displayName: name,
           photoURL: photoURL,
         })
-          .then(() => {
+          .then((updateResult) => {
+            console.log(updateResult);
             const saveUser = {
               name,
               email,
               photoURL,
+              creationTime,
+              lastSignInTime,
+              emailVerified,
             };
 
             fetch("http://localhost:3000/users", {
@@ -94,19 +102,21 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-white shadow-xl rounded-lg flex w-full max-w-5xl overflow-hidden">
-        <div className="hidden md:block w-1/2">
+    <div className="flex justify-center min-h-screen">
+      <div className="sm:flex items-center w-full max-w-7xl overflow-hidden">
+        <div className="w-1/2 mx-auto">
           <Lottie animationData={animationData} loop={true} />
         </div>
 
-        <div className="w-full md:w-1/2 p-8">
-          <h2 className="text-3xl font-medium mb-6 text-center text-primary">
+        <div className="w-full sm:w-1/2 sm:p-4 md:p-8">
+          <h2 className="text-xl md:text-3xl font-medium mb-6 text-center text-primary space-y-2">
             Create an Account
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <label className="text-primary" htmlFor="name">Full Name</label>
+            <label className="text-primary" htmlFor="name">
+              Full Name
+            </label>
             <input
               type="text"
               name="name"
@@ -118,7 +128,9 @@ export default function Register() {
               required
             />
 
-            <label className="text-primary" htmlFor="email">Email</label>
+            <label className="text-primary" htmlFor="email">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -130,7 +142,9 @@ export default function Register() {
               required
             />
 
-            <label className="text-primary" htmlFor="photoURL">Photo URL</label>
+            <label className="text-primary" htmlFor="photoURL">
+              Photo URL
+            </label>
             <input
               type="text"
               name="photoURL"
@@ -142,7 +156,9 @@ export default function Register() {
               required
             />
 
-            <label className="text-primary" htmlFor="password">Password</label>
+            <label className="text-primary" htmlFor="password">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -154,10 +170,7 @@ export default function Register() {
               required
             />
 
-            <button
-              type="submit"
-              className="btn btn-primary w-full"
-            >
+            <button type="submit" className="btn btn-primary w-full">
               Register
             </button>
           </form>
@@ -168,6 +181,7 @@ export default function Register() {
               Login
             </Link>
           </p>
+          <GoogleBtn/>
         </div>
       </div>
     </div>
