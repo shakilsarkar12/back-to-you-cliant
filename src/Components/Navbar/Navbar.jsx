@@ -1,8 +1,22 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { useContext } from "react";
+import { Links, NavLink } from "react-router";
 import { Link } from "react-router";
+import { AuthContext } from "../../context/AuthContext/Authcontext";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, setUser, logoutUser } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logoutUser()
+      .then(() => {
+      toast.success("Log Out Success")
+        setUser(null)
+      }).catch(error => {
+      console.log(error);
+    })
+  };
+
   const Navlinks = (
     <>
       <NavLink
@@ -62,7 +76,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end space-x-4">
-            <button className="btn btn-primary btn-sm">Log Out</button>
+          {user ? <>
+            <button onClick={handleLogOut} className="btn btn-primary btn-sm">Log Out</button>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -71,8 +86,9 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    alt="Tailwind CSS Navbar component"
+                    referrerPolicy="no-referrer"
+                  src={user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                 />
               </div>
             </div>
@@ -82,7 +98,10 @@ const Navbar = () => {
             >
               {Navlinks}
             </ul>
-          </div>
+            </div></> : <Link className="btn btn-primary btn-sm
+          " to='/login'>Login</Link>
+            
+}
         </div>
       </div>
     </div>
