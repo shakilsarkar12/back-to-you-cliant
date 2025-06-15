@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import GoogleBtn from "../../Components/GoogleBtn/GoogleBtn";
 
 export default function Register() {
-    const {createUser} = useContext(AuthContext)
+    const {createUser, setLoading} = useContext(AuthContext)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,6 +82,7 @@ export default function Register() {
               .then((res) => res.json())
               .then((data) => {
                 console.log("User saved to DB:", data);
+                setLoading(false)
                 toast.success("Registration Successful!");
                 navigate("/"); 
               })

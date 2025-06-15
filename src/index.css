@@ -45,3 +45,7 @@ width: 100%;
 .navlink.active{
   color: #0EA5E9;
 }
+
+.react-datepicker-wrapper{
+  width: 100%;
+}

@@ -46,7 +46,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/addlost&found"
+                  to="/addItems"
                   className="text-gray-600 hover:text-primary text-sm"
                 >
                   Add Lost & Found Item

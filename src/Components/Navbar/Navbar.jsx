@@ -34,7 +34,7 @@ const Navbar = () => {
       </NavLink>
       <NavLink
         className="navlink text-lg hover:text-primary duration-300 w-fit"
-        to="/addlost&found"
+        to="/addItems"
       >
         Add Lost & Found Item
       </NavLink>

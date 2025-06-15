@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext/Authcontext";
 import GoogleBtn from "../../Components/GoogleBtn/GoogleBtn";
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, setLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Login = () => {
       .then(() => {
         toast.success("Login Successful!");
         navigate("/");
+        setLoading(false)
       })
       .catch((error) => {
         toast.error(error.message);

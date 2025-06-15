@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
   }
 
   const logoutUser = () => {
+    setLoading(true)
     return signOut(auth)
   }
 
@@ -31,6 +32,7 @@ const AuthProvider = ({ children }) => {
     const unsubscrobe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       console.log(currentUser);
+      setLoading(false)
     });
     return () => unsubscrobe();
   }, [])
