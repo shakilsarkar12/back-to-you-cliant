@@ -6,7 +6,7 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #0EA5E9;
+  --color-primary: #0284C7;
   --color-secondary: #BAE6FD;
   --color-accent: #1F2937;
   --color-accent-content: #4B5563;
@@ -30,7 +30,7 @@ html{
   left: 0;
   height: 2px;
   width: 0%;
-  background: #0EA5E9;
+  background: #0284C7;
   transition: all 0.3s;
 }
 
@@ -43,7 +43,7 @@ width: 100%;
 }
 
 .navlink.active{
-  color: #0EA5E9;
+  color: #0284C7;
 }
 
 .react-datepicker-wrapper{

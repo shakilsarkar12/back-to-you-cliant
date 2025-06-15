@@ -6,6 +6,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import LostFound from "../Pages/LostFound/LostFound";
 import AddLostFound from "../Pages/AddLostFound/AddLostFound";
+import ItemDetails from "../Pages/ItemDetails/ItemDetails";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/addItems",
         Component: AddLostFound,
+      },
+      {
+        path: "/item/:id",
+        Component: ItemDetails,
       },
     ],
   },
