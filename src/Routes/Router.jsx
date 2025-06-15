@@ -7,6 +7,7 @@ import Register from "../Pages/Register/Register";
 import LostFound from "../Pages/LostFound/LostFound";
 import AddLostFound from "../Pages/AddLostFound/AddLostFound";
 import ItemDetails from "../Pages/ItemDetails/ItemDetails";
+import MyItems from "../Pages/MyItems/MyItems";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "/item/:id",
         Component: ItemDetails,
+      },
+      {
+        path: "/myitems",
+        Component: MyItems,
       },
     ],
   },
