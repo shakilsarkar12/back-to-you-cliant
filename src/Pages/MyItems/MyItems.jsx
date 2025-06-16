@@ -6,17 +6,16 @@ import alerterror from '../../assets/alert-error.png'
 import Swal from "sweetalert2";
 
 const MyItems = () => {
-  const { user, loading, setLoading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [items, setItems] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     fetch(`http://localhost:3000/my-items?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 400);
+        setLoading(false);
       });
   }, [user?.email, setLoading]);
 

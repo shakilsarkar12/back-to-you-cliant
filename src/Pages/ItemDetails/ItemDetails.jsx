@@ -27,7 +27,8 @@ const ItemDetails = () => {
       .then((data) => setItem(data));
   }, [id]);
 
-  const handleRecover = async () => {
+  const handleRecover = async (e) => {
+    e.preventDefault();
     if (item.status === "recovered") {
       return toast.error("Item already recovered!");
     }
@@ -92,7 +93,7 @@ const ItemDetails = () => {
           </p>
 
           <p className="text-base md:text-lg flex items-center gap-2 mb-1">
-            <FaMapMarkerAlt/> <span>Location:</span>
+            <FaMapMarkerAlt /> <span>Location:</span>
             {item.location}
           </p>
 
@@ -132,7 +133,7 @@ const ItemDetails = () => {
 
       {/* Modal */}
       <dialog id="recover_modal" className="modal">
-        <div className="modal-box space-y-4">
+        <form onSubmit={handleRecover} className="modal-box space-y-4">
           <h3 className="font-bold text-xl mb-4">Confirm Recovery</h3>
 
           <input
@@ -140,34 +141,39 @@ const ItemDetails = () => {
             placeholder="Recovery Location"
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-primary"
             value={recoveryLocation}
+            required
             onChange={(e) => setRecoveryLocation(e.target.value)}
           />
 
           <DatePicker
+            required
             selected={recoveryDate}
             onChange={(date) => setRecoveryDate(date)}
             dateFormat="yyyy-MM-dd"
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-primary"
           />
 
-          <div className="flex flex-col gap-2 mb-4">
-            <p className="flex items-center gap-2">
-              <FaUser className="text-primary" /> {user?.displayName}
-            </p>
-            <p className="flex items-center gap-2">
-              <FaEnvelope className="text-primary" /> {user?.email}
-            </p>
+          <div className="flex items-center gap-2  mb-4">
+            <div className="w-fit h-fit">
+              <img className="w-10 rounded-full" src={user?.photoURL} alt="" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="flex items-center gap-2">
+                <FaUser className="text-primary" /> {user?.displayName}
+              </p>
+              <p className="flex items-center gap-2">
+                <FaEnvelope className="text-primary" /> {user?.email}
+              </p>
+            </div>
           </div>
 
           <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-            <button onClick={handleRecover} className="btn btn-primary">
-              Confirm
-            </button>
+            <div method="dialog">
+              <button onClick={()=>document.getElementById("recover_modal").close()} type="button" className="btn">Close</button>
+            </div>
+            <button type="submit" className="btn btn-primary">Confirm</button>
           </div>
-        </div>
+        </form>
       </dialog>
     </div>
   );
