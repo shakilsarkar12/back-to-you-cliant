@@ -6,7 +6,7 @@ const LostFound = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/items")
+    fetch("https://back-to-you-server.vercel.app/items")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);

@@ -19,7 +19,7 @@ const GoogleBtn = () => {
                   lastSignInTime: user?.metadata?.lastSignInTime,
                   emailVerified: user?.emailVerified,
                 };
-                fetch("http://localhost:3000/users", {
+                fetch("https://back-to-you-server.vercel.app/users", {
                   method: "POST",
                   headers: {
                     "content-type": "application/json",
@@ -27,13 +27,11 @@ const GoogleBtn = () => {
                   body: JSON.stringify(saveUser),
                 })
                   .then((res) => res.json())
-                  .then((data) => {
-                    console.log("User saved to DB:", data);
+                  .then(() => {
                     toast.success("Registration Successful!");
                     navigate("/");
                   })
-                  .catch((error) => {
-                    console.error("Database save failed:", error);
+                  .catch(() => {
                     toast.error("User Save Failed!");
                   });
         })

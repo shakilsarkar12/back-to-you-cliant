@@ -61,8 +61,7 @@ export default function Register() {
           displayName: name,
           photoURL: photoURL,
         })
-          .then((updateResult) => {
-            console.log(updateResult);
+          .then(() => {
             const saveUser = {
               name,
               email,
@@ -72,7 +71,7 @@ export default function Register() {
               emailVerified,
             };
 
-            fetch("http://localhost:3000/users", {
+            fetch("https://back-to-you-server.vercel.app/users", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -81,23 +80,21 @@ export default function Register() {
             })
               .then((res) => res.json())
               .then((data) => {
-                console.log("User saved to DB:", data);
-                setLoading(false)
-                toast.success("Registration Successful!");
-                navigate("/"); 
+                if (data.insertedId) {
+                  setLoading(false);
+                  toast.success("Registration Successful!");
+                  navigate("/"); 
+                }
               })
-              .catch((error) => {
-                console.error("Database save failed:", error);
+              .catch(() => {
                 toast.error("User Save Failed!");
               });
           })
-          .catch((err) => {
-            console.error(err);
+          .catch(() => {
             toast.error("Profile Update Failed!");
           });
       })
       .catch((err) => {
-        console.error(err);
         toast.error(err.message);
       });
   };

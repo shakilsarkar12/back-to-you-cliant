@@ -9,9 +9,9 @@ const MyItems = () => {
   const { user } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    fetch(`http://localhost:3000/my-items?email=${user?.email}`)
+    fetch(`https://back-to-you-server.vercel.app/my-items?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
@@ -38,7 +38,7 @@ const MyItems = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/item/${id}`, {
+        fetch(`https://back-to-you-server.vercel.app/item/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

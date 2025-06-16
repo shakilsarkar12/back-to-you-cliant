@@ -22,7 +22,7 @@ const ItemDetails = () => {
   const [recoveryLocation, setRecoveryLocation] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/item/${id}`)
+    fetch(`https://back-to-you-server.vercel.app/item/${id}`)
       .then((res) => res.json())
       .then((data) => setItem(data));
   }, [id]);
@@ -44,21 +44,21 @@ const ItemDetails = () => {
       recoveryDate: recoveryDate.toISOString().split("T")[0],
     };
 
-    const res = await fetch(`http://localhost:3000/recoveries`, {
+    const res = await fetch(`https://back-to-you-server.vercel.app/recoveries`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(recoveryInfo),
     });
 
     if (res.ok) {
-      await fetch(`http://localhost:3000/item/${id}`, {
+      await fetch(`https://back-to-you-server.vercel.app/item/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "recovered" }),
       });
       toast.success("Item marked as recovered!");
       document.getElementById("recover_modal").close();
-      fetch(`http://localhost:3000/item/${id}`)
+      fetch(`https://back-to-you-server.vercel.app/item/${id}`)
         .then((res) => res.json())
         .then((data) => setItem(data));
     } else {

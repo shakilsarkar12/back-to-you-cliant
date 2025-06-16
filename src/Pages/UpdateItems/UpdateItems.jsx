@@ -16,7 +16,7 @@ const UpdateItem = () => {
 
   // fetch existing item data
   useEffect(() => {
-    fetch(`http://localhost:3000/item/${id}`)
+    fetch(`https://back-to-you-server.vercel.app/item/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setOriginalData(data);
@@ -68,7 +68,7 @@ const UpdateItem = () => {
     }
 
     // proceed to update
-    fetch(`http://localhost:3000/updateitem/${id}`, {
+    fetch(`https://back-to-you-server.vercel.app/updateitem/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedItem),

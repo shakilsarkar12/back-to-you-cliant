@@ -7,15 +7,13 @@ const AllRecoveredItems = () => {
   const [recoveredItems, setRecoveredItems] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/recoveredItems?email=${user?.email}`)
+    fetch(`https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setRecoveredItems(data);
         setLoading(false);
       });
   }, [user]);
-    
-    console.log(recoveredItems);
 
   if (loading) {
     return (
