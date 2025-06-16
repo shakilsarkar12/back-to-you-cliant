@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext/Authcontext";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
 import alerterror from '../../assets/alert-error.png'
+import Swal from "sweetalert2";
 
 const MyItems = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
@@ -27,23 +28,36 @@ const MyItems = () => {
     );
   }
   const handleDelete = (id) => {
-    const confirmDelete = confirm("Are you sure you want to delete?");
 
-    if (confirmDelete) {
-      fetch(`http://localhost:3000/item/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount) {
-            toast.success("Item deleted successfully");
-            setItems(items.filter((item) => item._id !== id));
-          } else {
-            toast.error("Failed to delete item.");
-          }
-        });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/item/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              setItems(items.filter((item) => item._id !== id));
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            } else {
+              toast.error("Failed to delete item.");
+            }
+          });
+      }
+    });
     }
-  };
 
   if (items.length === 0) {
     return (
