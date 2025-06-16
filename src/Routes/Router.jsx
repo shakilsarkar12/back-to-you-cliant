@@ -8,6 +8,7 @@ import LostFound from "../Pages/LostFound/LostFound";
 import AddLostFound from "../Pages/AddLostFound/AddLostFound";
 import ItemDetails from "../Pages/ItemDetails/ItemDetails";
 import MyItems from "../Pages/MyItems/MyItems";
+import UpdateItem from "../Pages/updateItems/updateItems";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/myitems",
         Component: MyItems,
+      },
+      {
+        path: "/updateItems/:id",
+        Component: UpdateItem,
       },
     ],
   },
