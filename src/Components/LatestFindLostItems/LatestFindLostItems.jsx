@@ -14,8 +14,8 @@ const LatestFindLostItems = () => {
   }, []);
 
   return (
-    <div className="my-20">
-      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-10 text-center text-primary">
+    <div className="my-10 md:my-20">
+      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-6 md:mb-10 text-center text-primary">
         Latest Find & Lost Items
       </h2>
 

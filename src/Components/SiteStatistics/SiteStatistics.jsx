@@ -26,7 +26,7 @@ const SiteStatistics = () => {
 
   return (
     <div ref={ref} className="max-w-7xl mx-auto my-20 p-4 text-center">
-      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-10 text-center text-primary">
+      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-4 md:mb-10 text-center text-primary">
         Community Statistics
       </h2>
       <p className="text-gray-500 mb-10 max-w-xl mx-auto">
