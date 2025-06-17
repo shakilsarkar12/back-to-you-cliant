@@ -4,10 +4,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const AddLostFound = () => {
   const { user } = useContext(AuthContext);
   const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(true);
+
+setTimeout(() => {
+  setLoading(false)
+}, 300);
+
+
 
   const [formData, setFormData] = useState({
     type: "Lost",
@@ -17,6 +26,10 @@ const AddLostFound = () => {
     category: "",
     location: "",
   });
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +70,9 @@ const AddLostFound = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10">
       <h2 className="text-2xl font-semibold mb-6 text-center">
         Add Lost / Found Item
       </h2>
@@ -192,7 +207,7 @@ const AddLostFound = () => {
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

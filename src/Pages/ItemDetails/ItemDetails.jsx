@@ -13,6 +13,8 @@ import {
 } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { TbStatusChange } from "react-icons/tb";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const ItemDetails = () => {
   const { id } = useParams();
@@ -20,12 +22,20 @@ const ItemDetails = () => {
   const [item, setItem] = useState({});
   const [recoveryDate, setRecoveryDate] = useState(new Date());
   const [recoveryLocation, setRecoveryLocation] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`https://back-to-you-server.vercel.app/item/${id}`)
       .then((res) => res.json())
-      .then((data) => setItem(data));
+      .then((data) => {
+        setItem(data)
+        setLoading(false)
+      });
   }, [id]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleRecover = async (e) => {
     e.preventDefault();
@@ -67,7 +77,9 @@ const ItemDetails = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-12">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="max-w-6xl mx-auto mt-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Image */}
         <div className="relative">
@@ -175,7 +187,7 @@ const ItemDetails = () => {
           </div>
         </form>
       </dialog>
-    </div>
+    </motion.div>
   );
 };
 

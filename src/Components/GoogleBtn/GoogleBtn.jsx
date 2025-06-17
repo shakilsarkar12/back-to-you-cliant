@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext/Authcontext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
-const GoogleBtn = () => {
+const GoogleBtn = ({state}) => {
     const { googleLogin } = useContext(AuthContext);
       const navigate = useNavigate();
 
@@ -28,8 +28,8 @@ const GoogleBtn = () => {
                 })
                   .then((res) => res.json())
                   .then(() => {
-                    toast.success("Registration Successful!");
-                    navigate("/");
+                    navigate(state? state : "/");
+                    toast.success("Login Successful!");
                   })
                   .catch(() => {
                     toast.error("User Save Failed!");
@@ -40,7 +40,7 @@ const GoogleBtn = () => {
     return (
       <>
         <div className="divider">or</div>
-        <button onClick={handleGoogleLogin} class="w-full btn bg-white text-accent-content border-[#e5e5e5]">
+        <button onClick={handleGoogleLogin} className="w-full btn bg-white text-accent-content border-[#e5e5e5]">
           <svg
             aria-label="Google logo"
             width="16"

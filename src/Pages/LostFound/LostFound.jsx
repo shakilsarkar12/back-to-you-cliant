@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import ItemCard from "../../Components/ItemCard/ItemCard";
+import Spinner from "../../Components/Spinner/Spinner";
 
 const LostFound = () => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://back-to-you-server.vercel.app/items")
       .then((res) => res.json())
-      .then((data) => setItems(data));
+      .then((data) => {
+        setItems(data)
+      setLoading(false)
+      });
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="max-w-7xl mx-auto mt-8 md:mt-12">

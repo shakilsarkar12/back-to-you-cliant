@@ -5,6 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import _ from "lodash";
 import toast from "react-hot-toast";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const UpdateItem = () => {
   const { id } = useParams();
@@ -13,6 +15,7 @@ const UpdateItem = () => {
   const [originalData, setOriginalData] = useState({});
   const [formData, setFormData] = useState({});
   const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(true);
 
   // fetch existing item data
   useEffect(() => {
@@ -29,8 +32,13 @@ const UpdateItem = () => {
           description: data.description,
         });
         setDate(new Date(data.date));
+        setLoading(false)
       });
   }, [id]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,7 +91,9 @@ const UpdateItem = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10">
       <h2 className="text-2xl font-semibold mb-6 text-center">Update Item</h2>
 
       <form
@@ -225,7 +235,7 @@ const UpdateItem = () => {
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

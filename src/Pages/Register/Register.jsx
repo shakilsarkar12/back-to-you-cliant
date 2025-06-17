@@ -6,6 +6,7 @@ import {updateProfile } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import toast from "react-hot-toast";
 import GoogleBtn from "../../Components/GoogleBtn/GoogleBtn";
+import { motion } from "framer-motion";
 
 export default function Register() {
     const {createUser, setLoading} = useContext(AuthContext)
@@ -100,7 +101,9 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center min-h-screen">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="flex justify-center items-start mt-8 ">
       <div className="sm:flex items-center w-full max-w-7xl overflow-hidden">
         <div className="w-1/2 mx-auto">
           <Lottie animationData={animationData} loop={true} />
@@ -182,6 +185,6 @@ export default function Register() {
           <GoogleBtn/>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

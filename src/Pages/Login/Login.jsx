@@ -1,16 +1,23 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Lottie from "lottie-react";
 import loginAnimation from "../../assets/login-animation.json";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import GoogleBtn from "../../Components/GoogleBtn/GoogleBtn";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const Login = () => {
-  const { loginUser, setLoading } = useContext(AuthContext);
+  const { loginUser, loading, setLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -23,7 +30,7 @@ const Login = () => {
     loginUser(email, password)
       .then(() => {
         toast.success("Login Successful!");
-        navigate("/");
+        navigate(location.state ? location.state : "/");
         setLoading(false)
       })
       .catch((error) => {
@@ -32,7 +39,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="flex items-start justify-center ">
       <div className="sm:flex items-center w-full max-w-7xl overflow-hidden">
         <div className="w-1/2 mx-auto">
           <Lottie animationData={loginAnimation} loop={true} />
@@ -78,10 +87,10 @@ const Login = () => {
               Register
             </Link>
           </p>
-          <GoogleBtn/>
+          <GoogleBtn state={location.state } />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

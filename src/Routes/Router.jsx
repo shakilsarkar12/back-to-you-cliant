@@ -10,6 +10,7 @@ import ItemDetails from "../Pages/ItemDetails/ItemDetails";
 import MyItems from "../Pages/MyItems/MyItems";
 import UpdateItem from "../Pages/updateItems/updateItems";
 import AllRecoveredItems from "../Pages/AllRecoveredItems/AllRecoveredItems";
+import Private from "../Private/Private";
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addItems",
-        Component: AddLostFound,
+       element: <Private><AddLostFound/></Private>,
       },
       {
         path: "/item/:id",

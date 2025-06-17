@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const AllRecoveredItems = () => {
   const { user } = useContext(AuthContext);
@@ -7,7 +9,9 @@ const AllRecoveredItems = () => {
   const [recoveredItems, setRecoveredItems] = useState([]);
 
   useEffect(() => {
-    fetch(`https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`)
+    fetch(
+      `https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setRecoveredItems(data);
@@ -16,15 +20,13 @@ const AllRecoveredItems = () => {
   }, [user]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <span className="loading loading-bars loading-lg text-primary"></span>
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-4">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }} className="max-w-6xl mx-auto mt-10 p-4">
       <h2 className="text-3xl font-semibold mb-6 text-center">
         My Recovered Items
       </h2>
@@ -66,7 +68,7 @@ const AllRecoveredItems = () => {
           </table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

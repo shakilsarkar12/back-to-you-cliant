@@ -4,6 +4,8 @@ import { Link } from "react-router";
 import toast from "react-hot-toast";
 import alerterror from '../../assets/alert-error.png'
 import Swal from "sweetalert2";
+import Spinner from "../../Components/Spinner/Spinner";
+import { motion } from "framer-motion";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
@@ -20,11 +22,7 @@ const MyItems = () => {
   }, [user?.email, setLoading]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <span className="loading loading-bars loading-lg text-primary"></span>
-      </div>
-    );
+    return <Spinner/>;
   }
   const handleDelete = (id) => {
 
@@ -60,19 +58,23 @@ const MyItems = () => {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto mt-8 md:mt-12">
+      <motion.div
+      animate={{ y: [50, 0], opacity: [0, 100] }}
+      transition={{ duration: 0.4 }} className="max-w-6xl mx-auto mt-8 md:mt-12">
         <h2 className="text-3xl font-bold mb-8 text-center">My Posts</h2>
 
         <div className="flex flex-col items-center justify-center text-center text-gray-500 text-xl">
           <img src={alerterror} alt="" />
            No items found!
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto mt-8 md:mt-12">
+    <motion.div
+    animate={{ y: [50, 0], opacity: [0, 100] }}
+    transition={{ duration: 0.4 }}className="max-w-6xl mx-auto mt-8 md:mt-12">
       <h2 className="text-3xl font-bold mb-8 text-center">My Posts</h2>
         <div className="overflow-x-auto shadow-[0px_0px_5px_rgb(0_0_0_/_0.25)] rounded-md">
           <table className="table shadow-[0px_0px_10px_#f3f3f3] table-zebra min-w-3xl">
@@ -123,7 +125,7 @@ const MyItems = () => {
             </tbody>
           </table>
         </div>
-    </div>
+    </motion.div>
   );
 };
 
