@@ -26,7 +26,7 @@ const SiteStatistics = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3000/siteStats")
+    fetch("https://back-to-you-server.vercel.app/siteStats")
       .then((res) => res.json())
       .then((data) => setStats(data));
   }, []);

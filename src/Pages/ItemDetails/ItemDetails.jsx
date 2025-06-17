@@ -25,7 +25,7 @@ const ItemDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/item/${id}?email=${user?.email}`, {
+    fetch(`https://back-to-you-server.vercel.app/item/${id}?email=${user?.email}`, {
       credentials: "include"
     })
       .then((res) => res.json())
@@ -56,7 +56,7 @@ const ItemDetails = () => {
       recoveryDate: recoveryDate.toISOString().split("T")[0],
     };
 
-    const res = await fetch(`http://localhost:3000/recoveries`, {
+    const res = await fetch(`https://back-to-you-server.vercel.app/recoveries`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(recoveryInfo),
@@ -64,7 +64,7 @@ const ItemDetails = () => {
     });
 
     if (res.ok) {
-      await fetch(`http://localhost:3000/item/${id}?email=${user?.email}`, {
+      await fetch(`https://back-to-you-server.vercel.app/item/${id}?email=${user?.email}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "recovered" }),
@@ -72,7 +72,7 @@ const ItemDetails = () => {
       });
       toast.success("Item marked as recovered!");
       document.getElementById("recover_modal").close();
-      fetch(`http://localhost:3000/item/${id}?email=${user?.email}`, {
+      fetch(`https://back-to-you-server.vercel.app/item/${id}?email=${user?.email}`, {
         credentials: "include",
       })
         .then((res) => res.json())

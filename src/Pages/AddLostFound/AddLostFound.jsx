@@ -45,7 +45,7 @@ setTimeout(() => {
       userEmail: user?.email || "",
     };
 
-    fetch("http://localhost:3000/addItems", {
+    fetch("https://back-to-you-server.vercel.app/addItems", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(itemData),

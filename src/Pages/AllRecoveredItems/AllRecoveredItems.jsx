@@ -17,7 +17,7 @@ const AllRecoveredItems = () => {
   const [isTableLayout, setIsTableLayout] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/recoveredItems?email=${user?.email}`, {
+    fetch(`https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`, {
       credentials: "include"
     })
       .then((res) => res.json())

@@ -19,7 +19,7 @@ const GoogleBtn = ({state}) => {
                   lastSignInTime: user?.metadata?.lastSignInTime,
                   emailVerified: user?.emailVerified,
                 };
-                fetch("http://localhost:3000/users", {
+                fetch("https://back-to-you-server.vercel.app/users", {
                   method: "POST",
                   headers: {
                     "content-type": "application/json",

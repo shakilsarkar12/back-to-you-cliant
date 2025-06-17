@@ -81,7 +81,7 @@ const UpdateItem = () => {
     }
 
     // proceed to update
-    fetch(`http://localhost:3000/updateitem/${id}?email=${user?.email}`, {
+    fetch(`https://back-to-you-server.vercel.app/updateitem/${id}?email=${user?.email}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedItem),

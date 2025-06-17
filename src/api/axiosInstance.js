@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { auth } from "../Firebase/firebase.init";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://back-to-you-server.vercel.app/",
   withCredentials: true,
 });
 

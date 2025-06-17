@@ -14,7 +14,7 @@ const MyItems = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-items?email=${user?.email}`, {
+    fetch(`https://back-to-you-server.vercel.app/my-items?email=${user?.email}`, {
       credentials: "include",
     })
       .then((res) => res.json())

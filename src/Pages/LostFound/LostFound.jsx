@@ -19,7 +19,7 @@ const LostFound = () => {
   const itemsPerPage = 6;
 
   useEffect(() => {
-    fetch("http://localhost:3000/items")
+    fetch("https://back-to-you-server.vercel.app/items")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
