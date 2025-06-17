@@ -45,13 +45,14 @@ setTimeout(() => {
       userEmail: user?.email || "",
     };
 
-    fetch("https://back-to-you-server.vercel.app/addItems", {
+    fetch("http://localhost:3000/addItems", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(itemData),
+      credentials: "include"
     })
       .then((res) => res.json())
-        .then((data) => {
+      .then((data) => {
         if (data.insertedId) {
           toast.success("Item added successfully!");
           setFormData({
@@ -64,7 +65,7 @@ setTimeout(() => {
           });
           setDate(new Date());
         } else {
-          toast.error("Failed to add item.");
+          toast.error(`${data.message} Failed to add item.`);
         }
       });
   };

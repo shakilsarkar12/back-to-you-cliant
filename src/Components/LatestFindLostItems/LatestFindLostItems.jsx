@@ -12,7 +12,7 @@ const LatestFindLostItems = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://back-to-you-server.vercel.app/latestItems")
+    fetch("http://localhost:3000/latestItems")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);

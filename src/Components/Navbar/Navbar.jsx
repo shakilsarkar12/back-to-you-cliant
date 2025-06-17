@@ -3,6 +3,7 @@ import { Links, NavLink } from "react-router";
 import { Link } from "react-router";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, setUser, logoutUser } = useContext(AuthContext);

@@ -72,7 +72,7 @@ export default function Register() {
               emailVerified,
             };
 
-            fetch("https://back-to-you-server.vercel.app/users", {
+            fetch("http://localhost:3000/users", {
               method: "POST",
               headers: {
                 "content-type": "application/json",

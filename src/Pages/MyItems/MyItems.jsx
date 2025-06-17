@@ -6,6 +6,7 @@ import alerterror from '../../assets/alert-error.png'
 import Swal from "sweetalert2";
 import Spinner from "../../Components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import axiosSecure from "../../api/axiosInstance";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,9 @@ const MyItems = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://back-to-you-server.vercel.app/my-items?email=${user?.email}`)
+    fetch(`http://localhost:3000/my-items?email=${user?.email}`, {
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
@@ -36,12 +39,10 @@ const MyItems = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://back-to-you-server.vercel.app/item/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount) {
+        axiosSecure
+          .delete(`/item/${id}?email=${user?.email}`)
+          .then((res) => {
+            if (res.data.deletedCount) {
               setItems(items.filter((item) => item._id !== id));
               Swal.fire({
                 title: "Deleted!",
@@ -51,6 +52,9 @@ const MyItems = () => {
             } else {
               toast.error("Failed to delete item.");
             }
+          })
+          .catch((error) => {
+            console.error(error);
           });
       }
     });

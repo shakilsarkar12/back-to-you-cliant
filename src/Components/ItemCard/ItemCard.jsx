@@ -7,8 +7,8 @@ const ItemCard = ({ item }) => {
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-lg flex flex-col hover:-translate-y-2 transition duration-300">
       <img
-        src={item.image}
-        alt={item.title}
+        src={item?.image}
+        alt={item?.title}
         className="h-56 w-full object-cover"
       />
       <div className="p-5 flex flex-col flex-1 space-y-3">

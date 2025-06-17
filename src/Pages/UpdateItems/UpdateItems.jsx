@@ -7,6 +7,7 @@ import _ from "lodash";
 import toast from "react-hot-toast";
 import Spinner from "../../Components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import axiosSecure from "../../api/axiosInstance";
 
 const UpdateItem = () => {
   const { id } = useParams();
@@ -19,9 +20,10 @@ const UpdateItem = () => {
 
   // fetch existing item data
   useEffect(() => {
-    fetch(`https://back-to-you-server.vercel.app/item/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    axiosSecure
+      .get(`/item/${id}?email=${user?.email}`)
+      .then((res) => {
+        const data = res.data;
         setOriginalData(data);
         setFormData({
           type: data.type,
@@ -32,9 +34,12 @@ const UpdateItem = () => {
           description: data.description,
         });
         setDate(new Date(data.date));
-        setLoading(false)
+        setLoading(false);
+      })
+      .catch((error) => {
+        toast.error(error);
       });
-  }, [id]);
+  }, [id, user?.email ]);
 
   if (loading) {
     return <Spinner />;
@@ -76,10 +81,11 @@ const UpdateItem = () => {
     }
 
     // proceed to update
-    fetch(`https://back-to-you-server.vercel.app/updateitem/${id}`, {
+    fetch(`http://localhost:3000/updateitem/${id}?email=${user?.email}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedItem),
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((data) => {

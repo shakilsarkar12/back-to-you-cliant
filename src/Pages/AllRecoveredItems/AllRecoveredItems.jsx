@@ -17,9 +17,9 @@ const AllRecoveredItems = () => {
   const [isTableLayout, setIsTableLayout] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`
-    )
+    fetch(`http://localhost:3000/recoveredItems?email=${user?.email}`, {
+      credentials: "include"
+    })
       .then((res) => res.json())
       .then((data) => {
         setRecoveredItems(data);
@@ -82,20 +82,20 @@ const AllRecoveredItems = () => {
                 </thead>
                 <tbody>
                   {recoveredItems.map((item, index) => (
-                    <tr key={item.recovery._id}>
+                    <tr key={item?.recovery?._id}>
                       <th>{index + 1}</th>
                       <td className="flex items-center gap-2">
                         <img
-                          src={item.recovery.recoveredBy.image}
+                          src={item?.recovery?.recoveredBy?.image}
                           alt="user"
                           className="w-8 h-8 rounded-full"
                         />
-                        <span>{item.recovery.recoveredBy.name}</span>
+                        <span>{item?.recovery?.recoveredBy?.name}</span>
                       </td>
-                      <td>{item.recovery.recoveryLocation}</td>
-                      <td>{item.recovery.recoveryDate}</td>
-                      <td>{item.item.title}</td>
-                      <td>{item.item.type}</td>
+                      <td>{item?.recovery?.recoveryLocation}</td>
+                      <td>{item?.recovery?.recoveryDate}</td>
+                      <td>{item?.item?.title}</td>
+                      <td>{item?.item?.type}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -106,7 +106,7 @@ const AllRecoveredItems = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {recoveredItems.map((item) => (
                 <motion.div
-                  key={item.recovery._id}
+                  key={item?.recovery?._id}
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
@@ -115,29 +115,29 @@ const AllRecoveredItems = () => {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <img
-                      src={item.recovery.recoveredBy.image}
+                      src={item?.recovery?.recoveredBy?.image}
                       alt="user"
                       className="w-10 h-10 rounded-full"
                     />
                     <div>
                       <h4 className="text-lg font-semibold text-primary">
-                        {item.recovery.recoveredBy.name}
+                        {item.recovery?.recoveredBy?.name}
                       </h4>
                       <p className="text-sm text-gray-500">
-                        {item.recovery.recoveryDate}
+                        {item?.recovery?.recoveryDate}
                       </p>
                     </div>
                   </div>
 
                   <h3 className="text-xl font-bold mb-2 text-accent">
-                    {item.item.title}
+                    {item?.item?.title}
                   </h3>
                   <p className="text-gray-600 mb-1">
-                    <span className="font-medium">Type:</span> {item.item.type}
+                    <span className="font-medium">Type:</span> {item?.item?.type}
                   </p>
                   <p className="text-gray-600">
                     <span className="font-medium">Location:</span>{" "}
-                    {item.recovery.recoveryLocation}
+                    {item?.recovery?.recoveryLocation}
                   </p>
                 </motion.div>
               ))}
