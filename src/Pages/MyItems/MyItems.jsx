@@ -73,58 +73,62 @@ const MyItems = () => {
 
   return (
     <motion.div
-    animate={{ y: [50, 0], opacity: [0, 100] }}
-    transition={{ duration: 0.4 }}className="max-w-6xl mx-auto mt-8 md:mt-12">
-      <h2 className="text-3xl font-bold mb-8 text-center">My Posts</h2>
-        <div className="overflow-x-auto shadow-[0px_0px_5px_rgb(0_0_0_/_0.25)] rounded-md">
-          <table className="table shadow-[0px_0px_10px_#f3f3f3] table-zebra min-w-3xl">
-            <thead>
-              <tr>
-                <th className="w-1/24">#</th>
-                <th className="w-4/12">Title</th>
-                <th>Type</th>
-                <th className="w-3/12">Status</th>
-                <th className="w-3/12">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((item, index) => (
-                <tr key={item._id}>
-                  <th>{index + 1}</th>
-                  <td>{item.title}</td>
-                  <td>{item.type}</td>
-                  <td>
-                    <span
-                      className={`px-2 py-1 rounded ${
-                        item.status === "recovered"
-                          ? "bg-green-200 text-green-800"
-                          : "bg-yellow-200 text-yellow-800"
-                      }`}
-                    >
-                      {item.status ? item.status : "not-recovered"}
-                    </span>
-                  </td>
-                  <td className="flex justify-between gap-2">
-                    <Link to={`/updateitems/${item._id}`}>
-                      <button className="btn btn-sm btn-primary">Update</button>
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="btn btn-sm btn-error"
-                    >
-                      Delete
+      animate={{ y: [50, 0], opacity: [0, 100] }}
+      transition={{ duration: 0.4 }}
+      className="max-w-6xl mx-auto mt-8 md:mt-12"
+    >
+      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-8 text-center text-primary">
+        My Posts
+      </h2>
+      <div className="overflow-x-auto shadow-[0px_0px_5px_rgb(0_0_0_/_0.25)] rounded-md">
+        <table className="table shadow-[0px_0px_10px_#f3f3f3] table-zebra min-w-3xl">
+          <thead>
+            <tr>
+              <th className="w-1/24">#</th>
+              <th className="w-4/12">Title</th>
+              <th>Type</th>
+              <th className="w-3/12">Status</th>
+              <th className="w-3/12">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => (
+              <tr key={item._id}>
+                <th>{index + 1}</th>
+                <td>{item.title}</td>
+                <td>{item.type}</td>
+                <td>
+                  <span
+                    className={`px-2 py-1 rounded ${
+                      item.status === "recovered"
+                        ? "bg-green-200 text-green-800"
+                        : "bg-yellow-200 text-yellow-800"
+                    }`}
+                  >
+                    {item.status ? item.status : "not-recovered"}
+                  </span>
+                </td>
+                <td className="flex justify-between gap-2">
+                  <Link to={`/updateitems/${item._id}`}>
+                    <button className="btn btn-sm btn-primary">Update</button>
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn btn-sm btn-error"
+                  >
+                    Delete
+                  </button>
+                  <Link to={`/item/${item._id}`} className="">
+                    <button className="btn btn-primary btn-sm text-white font-medium hover:bg-secondary hover:text-accent transition duration-300">
+                      Details
                     </button>
-                    <Link to={`/item/${item._id}`} className="">
-                      <button className="btn btn-primary btn-sm text-white font-medium hover:bg-secondary hover:text-accent transition duration-300">
-                        Details
-                      </button>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

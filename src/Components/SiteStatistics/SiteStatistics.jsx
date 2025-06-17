@@ -79,7 +79,7 @@ const SiteStatistics = () => {
         >
           <div className="text-5xl font-bold text-primary mb-2">
             {inView && (
-              <CountUp start={50} end={stats.lostCount} duration={2} />
+              <CountUp start={0} end={stats.lostCount} duration={2} />
             )}
           </div>
           <p className="text-lg font-medium text-accent">Lost Items</p>
@@ -92,7 +92,7 @@ const SiteStatistics = () => {
         >
           <div className="text-5xl font-bold text-primary mb-2">
             {inView && (
-              <CountUp start={50} end={stats.foundCount} duration={2} />
+              <CountUp start={0} end={stats.foundCount} duration={2} />
             )}
           </div>
           <p className="text-lg font-medium text-accent">Found Items</p>
@@ -105,7 +105,7 @@ const SiteStatistics = () => {
         >
           <div className="text-5xl font-bold text-primary mb-2">
             {inView && (
-              <CountUp start={50} end={stats.recoveredCount} duration={2} />
+              <CountUp start={0} end={stats.recoveredCount} duration={2} />
             )}
           </div>
           <p className="text-lg font-medium text-accent">Recovered Items</p>

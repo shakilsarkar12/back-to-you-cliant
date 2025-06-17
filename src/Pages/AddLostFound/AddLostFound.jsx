@@ -71,9 +71,11 @@ setTimeout(() => {
 
   return (
     <motion.div
-    animate={{ y: [50, 0], opacity: [0, 100] }}
-    transition={{ duration: 0.4 }} className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10">
-      <h2 className="text-2xl font-semibold mb-6 text-center">
+      animate={{ y: [50, 0], opacity: [0, 100] }}
+      transition={{ duration: 0.4 }}
+      className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-10"
+    >
+      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-8 text-center text-primary">
         Add Lost / Found Item
       </h2>
 
@@ -132,7 +134,9 @@ setTimeout(() => {
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-primary"
             required
           >
-            <option value="" disabled>Select Category</option>
+            <option value="" disabled>
+              Select Category
+            </option>
             <option>Pets</option>
             <option>Documents</option>
             <option>Gadgets</option>
