@@ -36,23 +36,43 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addItems",
-       element: <Private><AddLostFound/></Private>,
+        element: (
+          <Private>
+            <AddLostFound />
+          </Private>
+        ),
       },
       {
         path: "/item/:id",
-        Component: ItemDetails,
+        element: (
+          <Private>
+            <ItemDetails />
+          </Private>
+        ),
       },
       {
         path: "/myitems",
-        Component: MyItems,
+        element: (
+          <Private>
+            <MyItems />
+          </Private>
+        ),
       },
       {
         path: "/updateItems/:id",
-        Component: UpdateItem,
+        element: (
+          <Private>
+            <UpdateItem />
+          </Private>
+        ),
       },
       {
         path: "/allrecovered",
-        Component: AllRecoveredItems,
+        element: (
+          <Private>
+            <AllRecoveredItems />
+          </Private>
+        ),
       },
     ],
   },
