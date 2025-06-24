@@ -1,7 +1,7 @@
 # 📦 BackToYou - Lost & Found Management System
 
 ## 📖 Project Purpose
-BackToYou হলো একটি Lost & Found management platform যেখানে ইউজাররা হারানো বা পাওয়া জিনিসের details add করতে পারবে। অন্য ইউজার সেটি খুঁজে পেলে সেটির recovery info সাবমিট করতে পারবে। সাইটটিতে রয়েছে authentication, item management, site statistics এবং smooth animated user experience।
+BackToYou is a Lost & Found management platform where users can add details of lost or found items. Other users can submit recovery information if they find those items. The site features authentication, item management, site statistics, and a smooth, animated user experience.
 
 ---
 
