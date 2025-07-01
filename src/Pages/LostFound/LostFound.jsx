@@ -16,7 +16,7 @@ const LostFound = () => {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 12;
 
   useEffect(() => {
     fetch("https://back-to-you-server.vercel.app/items")
@@ -74,7 +74,7 @@ const LostFound = () => {
       {currentItems.length === 0 ? (
         <p className="text-center text-gray-500">No items found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
           {currentItems.map((item) => (
             <motion.div
               key={item._id}
@@ -95,7 +95,7 @@ const LostFound = () => {
         <button
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
+          className="px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
         >
           Prev
         </button>
@@ -105,7 +105,7 @@ const LostFound = () => {
           <button
             key={index + 1}
             onClick={() => paginate(index + 1)}
-            className={`px-4 py-2 border rounded-md ${
+            className={`px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border rounded-md ${
               currentPage === index + 1
                 ? "bg-primary text-white border-primary"
                 : "border-primary text-primary hover:bg-primary hover:text-white"
@@ -119,7 +119,7 @@ const LostFound = () => {
         <button
           onClick={() => paginate(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
+          className="px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
         >
           Next
         </button>

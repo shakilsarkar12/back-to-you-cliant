@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const ItemCard = ({ item }) => {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg flex flex-col hover:-translate-y-2 transition duration-300">
+    <div className="bg-white rounded-xl overflow-hidden shadow-lg flex flex-col hover:-translate-y-0.5 transition duration-300 h-full">
       <img
         src={item?.image}
         alt={item?.title}

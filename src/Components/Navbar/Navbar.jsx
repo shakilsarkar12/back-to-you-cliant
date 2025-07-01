@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
-import { Links, NavLink } from "react-router";
-import { Link } from "react-router";
+import { NavLink, Link } from "react-router";
 import { AuthContext } from "../../context/AuthContext/Authcontext";
 import toast from "react-hot-toast";
-import axios from "axios";
+import {
+  FiCheckCircle,
+  FiFolder,
+  FiHome,
+  FiInfo,
+  FiPlusCircle,
+  FiSearch,
+} from "react-icons/fi";
 
 const Navbar = () => {
   const { user, setUser, logoutUser } = useContext(AuthContext);
@@ -11,160 +17,178 @@ const Navbar = () => {
   const handleLogOut = () => {
     logoutUser()
       .then(() => {
-        toast.success("Log Out Success");
+        toast.success("Logged out successfully!");
         setUser(null);
+        handleCloseDrower();
       })
       .catch((error) => {
         toast.error(error.message);
       });
   };
 
-  const Navlinks = (
+  const handleCloseDrower = () => {
+    document.getElementById("profile-drawer").checked = false;
+  };
+
+  // Drawer nav items
+  const drawerNavItems = (
     <>
       <NavLink
-        className="navlink text-lg hover:text-primary duration-300 md:hidden w-fit"
+        onClick={() => handleCloseDrower()}
         to="/"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300 lg:hidden"
       >
-        Home
+        <FiHome /> Home
       </NavLink>
       <NavLink
-        className="navlink text-lg hover:text-primary duration-300 md:hidden w-fit"
+        onClick={() => handleCloseDrower()}
         to="/lost&found"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300 lg:hidden"
       >
-        Lost & Found Items
+        <FiSearch /> Lost & Found
       </NavLink>
       <NavLink
-        className="navlink text-lg hover:text-primary duration-300 w-fit"
+        onClick={() => handleCloseDrower()}
         to="/addItems"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
       >
-        Add Lost & Found Item
+        <FiPlusCircle /> Add Item
       </NavLink>
       <NavLink
-        className="navlink text-lg hover:text-primary duration-300 w-fit"
+        onClick={() => handleCloseDrower()}
         to="/allrecovered"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
       >
-        All Recovered Items
+        <FiCheckCircle /> Recovered
       </NavLink>
       <NavLink
-        className="navlink text-lg hover:text-primary duration-300 w-fit"
+        onClick={() => handleCloseDrower()}
         to="/myitems"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
       >
-        Manage My Items
+        <FiFolder /> My Items
+      </NavLink>
+      <NavLink
+        onClick={() => handleCloseDrower()}
+        to="/about"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
+      >
+        <FiInfo /> About
       </NavLink>
     </>
   );
+
   return (
-    <div className=" bg-base-100 shadow-sm">
-      <div className="navbar max-w-7xl mx-auto px-4 xl:px-0">
+    <div className="sticky top-0 z-50 bg-base-100 shadow px-4 lg:px-6">
+      <div className="navbar max-w-7xl mx-auto px-0">
+        {/* Logo */}
         <div className="navbar-start">
-          {!user && (
-            <div className="dropdown">
-              <div
-                tabIndex={0}
-                role="button"
-                className="cursor-pointer pr-3 lg:hidden"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {" "}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
-                  />{" "}
-                </svg>
-              </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-              >
-                <NavLink
-                  className="navlink text-lg hover:text-primary duration-300"
-                  to="/"
-                >
-                  Home
-                </NavLink>
-                <NavLink
-                  className="navlink text-lg hover:text-primary duration-300"
-                  to="/lost&found"
-                >
-                  Lost & Found Items
-                </NavLink>
-              </ul>
-            </div>
-          )}
-          <Link to="/" className="text-xl text-primary">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-primary cursor-pointer"
+          >
             BackToYou
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-4">
-            <NavLink
-              className="navlink text-lg hover:text-primary duration-300"
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className="navlink text-lg hover:text-primary duration-300"
-              to="/lost&found"
-            >
-              Lost & Found Items
-            </NavLink>
-          </ul>
-        </div>
-        <div className="navbar-end space-x-4">
-          {user ? (
-            <>
-              <button onClick={handleLogOut} className="btn btn-primary btn-sm">
-                Log Out
-              </button>
-              <div className="dropdown dropdown-end">
-                <div className="relative group">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full">
-                      <img
-                        alt="User profile"
-                        referrerPolicy="no-referrer"
-                        src={
-                          user?.photoURL ||
-                          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                        }
-                      />
-                    </div>
-                  </div>
 
-                  <div className="w-[124px] text-center absolute top-10 right-0  bg-gray-700 text-white text-xs rounded py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {user?.displayName || "Guest User"}
-                  </div>
+        {/* Center */}
+        <div className="navbar-center hidden lg:flex space-x-6">
+          <NavLink
+            to="/"
+            className="navlink text-lg hover:text-primary duration-300 w-fit"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/lost&found"
+            className="navlink text-lg hover:text-primary duration-300 w-fit"
+          >
+            Lost & Found
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="navlink text-lg hover:text-primary duration-300 w-fit"
+          >
+            About
+          </NavLink>
+        </div>
+
+        {/* End */}
+        <div className="navbar-end space-x-3">
+          {user ? (
+            <div>
+              {/* Drawer Open Button */}
+              <label
+                htmlFor="profile-drawer"
+                className="btn btn-ghost btn-circle avatar cursor-pointer"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="User"
+                    referrerPolicy="no-referrer"
+                    src={
+                      user?.photoURL ||
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                  />
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 text-center shadow"
-                >
-                  {Navlinks}
-                </ul>
-              </div>
-            </>
+              </label>
+            </div>
           ) : (
             <Link
-              className="btn btn-primary btn-sm
-          "
               to="/login"
+              className="btn btn-sm bg-primary text-white hover:bg-primary-focus"
             >
               Login
             </Link>
           )}
+        </div>
+      </div>
+
+      {/* Drawer */}
+      <input id="profile-drawer" type="checkbox" className="drawer-toggle " />
+      <div className="drawer-side z-[999]">
+        <label htmlFor="profile-drawer" className="drawer-overlay"></label>
+        <div className="menu p-4 lg:p-6 w-60 lg:w-80 min-h-full bg-base-200 text-base-content space-y-4">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-primary">
+              <img
+                src={
+                  user?.photoURL ||
+                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                }
+                alt="profile"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <h2 className="text-lg font-semibold text-primary">
+              {user?.displayName || "Guest User"}
+            </h2>
+            <p className="text-gray-600 text-sm">{user?.email || "N/A"}</p>
+          </div>
+
+          <Link
+            to="/profile"
+            onClick={() => handleCloseDrower()}
+            className="btn btn-primary btn-outline"
+          >
+            View Profile
+          </Link>
+
+          <div className="divider"></div>
+
+          {/* Drawer nav links */}
+          <div className="flex flex-col space-y-2">{drawerNavItems}</div>
+
+          <div className="mt-auto">
+            <button
+              id="profile-drawer"
+              onClick={handleLogOut}
+              className="btn btn-sm w-full mt-4 border-primary text-primary hover:bg-primary hover:text-white"
+            >
+              Log Out
+            </button>
+          </div>
         </div>
       </div>
     </div>
