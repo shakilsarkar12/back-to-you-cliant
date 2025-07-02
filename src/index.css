@@ -1,51 +1,68 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
-@plugin "daisyui"{
-  themes: light --default;
+@plugin "daisyui" {
+  themes: light --default, dark;
 }
 @plugin "daisyui/theme" {
   name: "light";
-  default: true;
-  --color-primary: #0284C7;
-  --color-secondary: #BAE6FD;
-  --color-accent: #1F2937;
-  --color-accent-content: #4B5563;
+  --color-primary: #0284c7;
+  --color-secondary: #bae6fd;
+  --color-accent: #ffffff;
+  --color-accent-content: #4b5563;
+  --color-neutral: #191d24;
+  --color-info: #3d4451;
+  --color-success: #0ca5e9;
+  --color-warning: #2dd4bf;
+  --color-error: #f4a261;
 }
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #0284c7;
+  --color-secondary: #022e45;
+  --color-accent: #1f2937;
+  --color-accent-content: #4b5563;
+  --color-neutral: #D8DEE3;
+  --color-info: #0ca5e9;
+  --color-success: #2dd4bf;
+  --color-warning: #f4a261;
+  --color-error: #ef4444;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-html{
+html {
   scroll-behavior: smooth;
 }
 * {
   font-family: "Poppins", sans-serif;
 }
 
-.navlink{
+.navlink {
   position: relative;
 }
 
-.navlink::after{
-  content: '';
+.navlink::after {
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   height: 2px;
   width: 0%;
-  background: #0284C7;
+  background: #0284c7;
   transition: all 0.3s;
 }
 
-.navlink:hover:after{
-width: 100%;
+.navlink:hover:after {
+  width: 100%;
 }
 
-.navlink.active::after{
-width: 100%;
+.navlink.active::after {
+  width: 100%;
 }
 
-.navlink.active{
-  color: #0284C7;
+.navlink.active {
+  color: #0284c7;
 }
 
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
   width: 100%;
 }

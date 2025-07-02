@@ -10,6 +10,7 @@ import {
   FiPlusCircle,
   FiSearch,
 } from "react-icons/fi";
+import AnimatedThemeToggle from "../../Theme/AnimatedThemeToggle";
 
 const Navbar = () => {
   const { user, setUser, logoutUser } = useContext(AuthContext);
@@ -166,6 +167,7 @@ const Navbar = () => {
             </h2>
             <p className="text-gray-600 text-sm">{user?.email || "N/A"}</p>
           </div>
+          <AnimatedThemeToggle />
 
           <Link
             to="/profile"

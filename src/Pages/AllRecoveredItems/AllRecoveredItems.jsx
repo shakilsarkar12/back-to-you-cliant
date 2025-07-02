@@ -61,7 +61,7 @@ const AllRecoveredItems = () => {
 
       {/* No Data */}
       {recoveredItems.length === 0 ? (
-        <div className="text-center text-gray-500 mt-10">
+        <div className="text-center text-neutral mt-10">
           No recovered items found.
         </div>
       ) : (
@@ -123,7 +123,7 @@ const AllRecoveredItems = () => {
                       <h4 className="text-lg font-semibold text-primary">
                         {item.recovery?.recoveredBy?.name}
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-neutral">
                         {item?.recovery?.recoveryDate}
                       </p>
                     </div>

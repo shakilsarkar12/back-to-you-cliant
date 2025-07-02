@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState, useCallback } from "react";
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import Spinner from "../../Components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import { FiFilter } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -11,119 +12,197 @@ const fadeUp = {
 
 const LostFound = () => {
   const [items, setItems] = useState([]);
+  const [prosses, setProsses] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
 
-  // Pagination states
+
+  setTimeout(() => {
+    setLoading(false)
+  }, 400);
+
+  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // input box এর জন্য আলাদা state
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [sort, setSort] = useState("newest");
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchItems = useCallback(async () => {
+    setProsses(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/items?search=${search}&category=${category}&location=${location}&sort=${sort}&page=${currentPage}&limit=${itemsPerPage}`
+      );
+      const data = await response.json();
+      setItems(data.items);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error("Failed to fetch items:", error);
+    } finally {
+      setProsses(false);
+    }
+  }, [search, category, location, sort, currentPage]);
 
   useEffect(() => {
-    fetch("https://back-to-you-server.vercel.app/items")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
-        setLoading(false);
-      });
-  }, []);
+    fetchItems();
+  }, [fetchItems]);
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  // Filtered Items
-  const filteredItems = items.filter(
-    (item) =>
-      item.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.location.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  // Pagination calculations
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  if (loading) return <Spinner />;
 
   return (
     <div className="max-w-7xl mx-auto mt-8 md:mt-12">
-      <motion.h2
-        animate={{ y: [50, 0], opacity: [0, 100] }}
-        transition={{ duration: 0.4 }}
-        className="text-xl md:text-2xl lg:text-4xl font-medium mb-8 text-center text-primary"
-      >
+      <h2 className="text-xl md:text-2xl lg:text-4xl font-medium mb-6 text-center text-primary">
         All Lost & Found Items
-      </motion.h2>
+      </h2>
 
-      {/* Search Field */}
-      <motion.div
-        animate={{ y: [50, 0], opacity: [0, 100] }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        className="max-w-md mx-auto mb-10"
-      >
-        <input
-          type="text"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search by title or location..."
-          className="w-full px-3 py-2 border border-primary rounded-md focus:outline-primary"
-        />
-      </motion.div>
+      <p className="text-base text-neutral text-center mb-8">
+        Browse all the items reported as lost or found by our community. Use the
+        filters to narrow down your search.
+      </p>
 
-      {currentItems.length === 0 ? (
-        <p className="text-center text-gray-500">No items found.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-          {currentItems.map((item) => (
-            <motion.div
-              key={item._id}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              transition={{ duration: 0.5, delay: 0.2 }}
+      {/* Search Field and Filter Button */}
+      <div className="flex items-center justify-between mb-6 gap-4">
+        <div className="flex items-center w-full gap-2">
+          <input
+            type="text"
+            placeholder="Search by title or location..."
+            className="input input-sm md:input-md input-primary rounded-md focus:border-primary focus:border-2 focus:outline-none"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button
+            className="btn btn-sm md:btn-md btn-primary"
+            onClick={() => {
+              setSearch(searchInput);
+              setCurrentPage(1);
+            }}
+          >
+            <FaSearch size={16} />
+          </button>
+        </div>
+        <button
+          className="btn btn-primary btn-sm md:btn-md flex items-center"
+          onClick={() => document.getElementById("filter_drawer").showModal()}
+        >
+          <FiFilter /> Filter
+        </button>
+      </div>
+
+      {/* Filter Drawer */}
+      <dialog id="filter_drawer" className="modal">
+        <div className="modal-box space-y-4">
+          <h3 className="font-bold text-lg">Filter & Sort</h3>
+
+          <div className="space-y-2">
+            <label className="label">Category</label>
+            <select
+              className="select select-bordered w-full"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setCurrentPage(1);
+              }}
             >
-              <ItemCard key={item._id} item={item} />
-            </motion.div>
-          ))}
+              <option value="">All</option>
+              <option value="Pets">Pets</option>
+              <option value="Documents">Documents</option>
+              <option value="Gadgets">Gadgets</option>
+              <option value="Wallet">Wallet</option>
+              <option value="Bag">Bag</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="label">Location</label>
+            <input
+              type="text"
+              className="input input-bordered w-full"
+              placeholder="Location"
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="label">Sort By</label>
+            <select
+              className="select select-bordered w-full"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
+
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn btn-primary">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* Items Grid */}
+      {items.length === 0 ? (
+        <p className="text-center text-neutral">No items found.</p>
+      ) : (
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+          {prosses ? (
+            <div className="col-span-full">
+              <Spinner />
+            </div>
+          ) : (
+            items.map((item) => (
+              <div key={item._id}>
+                <ItemCard key={item._id} item={item} />
+              </div>
+            ))
+          )}
         </div>
       )}
 
-      {/* Pagination Controls */}
-      <div className="flex flex-wrap gap-2 justify-center mt-10">
-        {/* Previous Button */}
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
-        >
-          Prev
-        </button>
-
-        {/* Page Number Buttons */}
-        {[...Array(totalPages)].map((_, index) => (
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex flex-wrap gap-2 justify-center mt-10">
           <button
-            key={index + 1}
-            onClick={() => paginate(index + 1)}
-            className={`px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border rounded-md ${
-              currentPage === index + 1
-                ? "bg-primary text-white border-primary"
-                : "border-primary text-primary hover:bg-primary hover:text-white"
-            } transition`}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-3 py-1 border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition disabled:opacity-50"
           >
-            {index + 1}
+            Prev
           </button>
-        ))}
-
-        {/* Next Button */}
-        <button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-2 py-1 md:px-4 md:py-2 text-xs md:text-base border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition"
-        >
-          Next
-        </button>
-      </div>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`px-3 py-1 border rounded-md ${
+                currentPage === index + 1
+                  ? "bg-primary text-white border-primary"
+                  : "border-primary text-primary hover:bg-primary hover:text-white"
+              } transition`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-3 py-1 border border-primary rounded-md text-primary hover:bg-primary hover:text-white transition disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

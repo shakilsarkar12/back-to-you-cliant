@@ -67,7 +67,7 @@ const MyItems = () => {
       transition={{ duration: 0.4 }} className="max-w-6xl mx-auto mt-8 md:mt-12">
         <h2 className="text-3xl font-bold mb-8 text-center">My Posts</h2>
 
-        <div className="flex flex-col items-center justify-center text-center text-gray-500 text-xl">
+        <div className="flex flex-col items-center justify-center text-center text-neutral text-xl">
           <img src={alerterror} alt="" />
            No items found!
         </div>

@@ -33,7 +33,7 @@ const SiteStatistics = () => {
 
   if (!stats) {
     return (
-      <div className="flex justify-center items-center my-20">
+      <div className="flex justify-center items-center my-10 md:my-20">
         <span className="loading loading-bars loading-lg text-primary"></span>
       </div>
     );
@@ -47,9 +47,9 @@ const SiteStatistics = () => {
       className="max-w-7xl mx-auto my-20 p-4 text-center"
     >
       <motion.h2
-        initial={{ opacity: 0, y: -30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
         className="text-xl md:text-2xl lg:text-4xl font-medium mb-4 md:mb-10 text-center text-primary"
       >
@@ -60,7 +60,7 @@ const SiteStatistics = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
-        className="text-gray-500 mb-10 max-w-xl mx-auto"
+        className="text-neutral mb-10 max-w-xl mx-auto"
       >
         See how active and successful our Lost & Found platform has been.
       </motion.p>
@@ -70,45 +70,43 @@ const SiteStatistics = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 sm: md:grid-cols-3 gap-8"
+        className="grid grid-cols-1 sm: md:grid-cols-3 gap-4"
       >
         <motion.div
           variants={cardVariants}
           transition={{ type: "spring", stiffness: 200 }}
-          className="bg-white p-8 border border-secondary rounded-2xl shadow hover:shadow-lg transition-all"
+          className="bg-gray-50 dark:bg-accent p-8 rounded-2xl shadow hover:shadow-lg transition-all"
         >
           <div className="text-5xl font-bold text-primary mb-2">
-            {inView && (
-              <CountUp start={0} end={stats.lostCount} duration={2} />
-            )}
+            {inView && <CountUp start={0} end={stats.lostCount} duration={2} />}
           </div>
-          <p className="text-lg font-medium text-accent">Lost Items</p>
+          <p className="text-lg font-medium text-neutral">Lost Items</p>
         </motion.div>
 
         <motion.div
           variants={cardVariants}
           transition={{ type: "spring", stiffness: 200 }}
-          className="bg-white p-8 border border-secondary rounded-2xl shadow hover:shadow-lg transition-all"
+          className="bg-gray-50 dark:bg-accent p-8 rounded-2xl shadow hover:shadow-lg transition-all"
         >
           <div className="text-5xl font-bold text-primary mb-2">
             {inView && (
               <CountUp start={0} end={stats.foundCount} duration={2} />
             )}
           </div>
-          <p className="text-lg font-medium text-accent">Found Items</p>
+          <p className="text-lg font-medium text-neutral">Found Items</p>
         </motion.div>
 
         <motion.div
           variants={cardVariants}
           transition={{ type: "spring", stiffness: 200 }}
-          className="bg-white p-8 border border-secondary rounded-2xl shadow hover:shadow-lg transition-all"
+          className="bg-gray-50 dark:bg-accent p-8 rounded-2xl shadow hover:shadow-lg transition-all"
         >
           <div className="text-5xl font-bold text-primary mb-2">
             {inView && (
               <CountUp start={0} end={stats.recoveredCount} duration={2} />
             )}
           </div>
-          <p className="text-lg font-medium text-accent">Recovered Items</p>
+          <p className="text-lg font-medium text-neutral">Recovered Items</p>
         </motion.div>
       </motion.div>
     </motion.div>

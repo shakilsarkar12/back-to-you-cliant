@@ -12,7 +12,7 @@ const LatestFindLostItems = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://back-to-you-server.vercel.app/latestItems")
+    fetch("http://localhost:3000/latestItems")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
@@ -20,9 +20,7 @@ const LatestFindLostItems = () => {
   }, []);
 
   return (
-    <div
-      className="my-10 md:my-20"
-    >
+    <div className="my-10 md:my-20">
       <motion.h2
         className="text-xl md:text-2xl lg:text-4xl font-medium mb-6 md:mb-10 text-center text-primary"
         initial={{ opacity: 0, y: 50 }}
@@ -33,8 +31,18 @@ const LatestFindLostItems = () => {
         Latest Find & Lost Items
       </motion.h2>
 
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="text-neutral mb-12 max-w-2xl mx-auto leading-relaxed"
+      >
+        Check out the most recent lost and found items posted by our community.
+      </motion.p>
+
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         initial="hidden"
         whileInView="visible"
         variants={{
@@ -48,13 +56,13 @@ const LatestFindLostItems = () => {
         }}
         viewport={{ once: true }}
       >
-        {items.map((item) => (
+        {items.map((item, idx) => (
           <motion.div
             key={item._id}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            transition={{ duration: 0.5 }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
           >
             <ItemCard item={item} />
           </motion.div>

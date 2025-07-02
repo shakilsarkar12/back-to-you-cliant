@@ -7,31 +7,32 @@ import {
   FaLinkedinIn,
   FaPaperPlane,
 } from "react-icons/fa";
+import ScrollTo from "../ScrollTo/ScrollTo";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-12">
+    <footer className="bg-gray-50 dark:bg-accent border-t border-gray-200 mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-2xl font-semibold text-primary tracking-wider mb-4">
               BackToYou
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-neutral text-sm">
               Connecting lost items with their owners through community power
               and technology.
             </p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">
+            <h3 className="text-sm font-semibold text-neutral tracking-wider uppercase mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/home"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Home
                 </Link>
@@ -39,7 +40,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/lost&found"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Lost & Found Items
                 </Link>
@@ -47,7 +48,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/addItems"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Add Lost & Found Item
                 </Link>
@@ -55,7 +56,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/allrecovered"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   All Recovered Items
                 </Link>
@@ -63,7 +64,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/myitems"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Manage My Items
                 </Link>
@@ -72,30 +73,29 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">
+            <h3 className="text-sm font-semibold text-neutral tracking-wider uppercase mb-4">
               Resources
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/"
-                  className="text-gray-600 hover:text-primary text-sm"
-                >
-                  Safety Tips
-                </Link>
+                <ScrollTo
+                  name="Safety Tips"
+                  to="tips"
+                  className="text-neutral hover:text-primary text-sm"
+                />
               </li>
               <li>
                 <Link
                   to="/"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Community Guidelines
                 </Link>
@@ -103,7 +103,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  className="text-gray-600 hover:text-primary text-sm"
+                  className="text-neutral hover:text-primary text-sm"
                 >
                   Blog
                 </Link>
@@ -112,26 +112,26 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">
+            <h3 className="text-sm font-semibold text-neutral tracking-wider uppercase mb-4">
               Connect
             </h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 hover:text-primary">
+              <a href="#" className="text-neutral hover:text-primary">
                 <FaFacebookF />
               </a>
-              <a href="#" className="text-gray-600 hover:text-primary">
+              <a href="#" className="text-neutral hover:text-primary">
                 <FaTwitter />
               </a>
-              <a href="#" className="text-gray-600 hover:text-primary">
+              <a href="#" className="text-neutral hover:text-primary">
                 <FaInstagram />
               </a>
-              <a href="#" className="text-gray-600 hover:text-primary">
+              <a href="#" className="text-neutral hover:text-primary">
                 <FaLinkedinIn />
               </a>
             </div>
 
             <div className="mt-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral">
                 Subscribe to our newsletter
               </p>
               <div className="mt-2 flex">
@@ -149,17 +149,17 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm">
+          <p className="text-neutral text-sm">
             &copy; {new Date().getFullYear()} BackToYou. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6">
-            <Link to="/" className="text-gray-500 hover:text-gray-600 text-sm">
+            <Link to="/" className="text-neutral hover:text-neutral text-sm">
               Privacy Policy
             </Link>
-            <Link to="/" className="text-gray-500 hover:text-gray-600 text-sm">
+            <Link to="/" className="text-neutral hover:text-neutral text-sm">
               Terms of Service
             </Link>
-            <Link to="/" className="text-gray-500 hover:text-gray-600 text-sm">
+            <Link to="/" className="text-neutral hover:text-neutral text-sm">
               Cookie Policy
             </Link>
           </div>
