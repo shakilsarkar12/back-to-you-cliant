@@ -80,10 +80,11 @@ BackToYou is a Lost & Found management platform where users can add details of l
 
 ---
 
-## Server Side Repository
+## 🌐 Server Side Repository
 
-[🔗 visit]([https://backtoyou-0.web.app/](https://github.com/shakilsarkar12/back-to-you-server))
+[🔗 Visit Server Repo](https://github.com/shakilsarkar12/back-to-you-server)
 
+---
 
 
 ## 📞 Developer Info
