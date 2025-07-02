@@ -10,16 +10,19 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-const AllRecoveredItems = () => {
+const MyRecoveredItems = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [recoveredItems, setRecoveredItems] = useState([]);
   const [isTableLayout, setIsTableLayout] = useState(false);
 
   useEffect(() => {
-    fetch("https://back-to-you-server.vercel.app/allrecoveredItems", {
-      credentials: "include",
-    })
+    fetch(
+      `https://back-to-you-server.vercel.app/recoveredItems?email=${user?.email}`,
+      {
+        credentials: "include",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setRecoveredItems(data);
@@ -31,13 +34,11 @@ const AllRecoveredItems = () => {
     return <Spinner />;
   }
 
-console.log(recoveredItems);
-
   return (
     <motion.div
       animate={{ y: [50, 0], opacity: [0, 100] }}
       transition={{ duration: 0.4 }}
-      className="max-w-7xl mx-auto mt-10"
+      className="max-w-7xl mx-auto mt-10 p-4"
     >
       <h2 className="text-3xl font-semibold mb-6 text-center text-primary">
         My Recovered Items
@@ -70,37 +71,34 @@ console.log(recoveredItems);
         <>
           {/* Table Layout */}
           {isTableLayout ? (
-            <div className="overflow-x-auto rounded-md">
-              <table className="bg-accent table table-zebra min-w-4xl">
+            <div className="bg-accent overflow-x-auto  rounded-md">
+              <table className="table table-zebra min-w-3xl">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Category</th>
+                    <th className="w-1/24">#</th>
+                    <th className="w-3/12">Recovered By</th>
                     <th>Location</th>
                     <th>Date</th>
-                    <th>Status</th>
+                    <th className="w-3/12">Title</th>
+                    <th>Type</th>
                   </tr>
                 </thead>
                 <tbody>
                   {recoveredItems.map((item, index) => (
-                    <tr key={item?._id}>
+                    <tr key={item?.recovery?._id}>
                       <th>{index + 1}</th>
-                      <td>
+                      <td className="flex items-center gap-2">
                         <img
-                          src={item?.image}
-                          alt={item?.title}
-                          className="w-12 h-12 rounded"
+                          src={item?.recovery?.recoveredBy?.image}
+                          alt="user"
+                          className="w-8 h-8 rounded-full"
                         />
+                        <span>{item?.recovery?.recoveredBy?.name}</span>
                       </td>
-                      <td>{item?.title}</td>
-                      <td>{item?.type}</td>
-                      <td>{item?.category}</td>
-                      <td>{item?.location}</td>
-                      <td>{item?.date}</td>
-                      <td>{item?.status}</td>
+                      <td>{item?.recovery?.recoveryLocation}</td>
+                      <td>{item?.recovery?.recoveryDate}</td>
+                      <td>{item?.item?.title}</td>
+                      <td>{item?.item?.type}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -111,42 +109,39 @@ console.log(recoveredItems);
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {recoveredItems.map((item) => (
                 <motion.div
-                  key={item?._id}
+                  key={item?.recovery?._id}
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="bg-gray-50 dark:bg-accent border border-secondary rounded-xl p-5 shadow hover:shadow-lg transition-all"
                 >
-                  <div className="mb-3">
+                  <div className="flex items-center gap-3 mb-3">
                     <img
-                      src={item?.image}
-                      alt={item?.title}
-                      className="w-full h-48 object-cover rounded"
+                      src={item?.recovery?.recoveredBy?.image}
+                      alt="user"
+                      className="w-10 h-10 rounded-full"
                     />
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral">
+                        {item.recovery?.recoveredBy?.name}
+                      </h4>
+                      <p className="text-sm text-neutral">
+                        {item?.recovery?.recoveryDate}
+                      </p>
+                    </div>
                   </div>
+
                   <h3 className="text-xl font-bold mb-2 text-neutral">
-                    {item?.title}
+                    {item?.item?.title}
                   </h3>
-                  <p className="text-neutralmb-1">
-                    <span className="font-medium">Type:</span>{" "}
-                    {item?.type}
+                  <p className="text-gray-600 mb-1">
+                    <span className="font-medium text-neutral">Type:</span>{" "}
+                    {item?.item?.type}
                   </p>
-                  <p className="text-neutralmb-1">
-                    <span className="font-medium">Category:</span>{" "}
-                    {item?.category}
-                  </p>
-                  <p className="text-neutralmb-1">
-                    <span className="font-medium">Location:</span>{" "}
-                    {item?.location}
-                  </p>
-                  <p className="text-neutralmb-1">
-                    <span className="font-medium">Date:</span>{" "}
-                    {item?.date}
-                  </p>
-                  <p className="text-neutral">
-                    <span className="font-medium">Status:</span>{" "}
-                    {item?.status}
+                  <p className="text-gray-600">
+                    <span className="font-medium text-neutral">Location:</span>{" "}
+                    {item?.recovery?.recoveryLocation}
                   </p>
                 </motion.div>
               ))}
@@ -158,4 +153,4 @@ console.log(recoveredItems);
   );
 };
 
-export default AllRecoveredItems;
+export default MyRecoveredItems;

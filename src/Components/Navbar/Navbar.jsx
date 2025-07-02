@@ -10,6 +10,8 @@ import {
   FiPlusCircle,
   FiSearch,
 } from "react-icons/fi";
+import { TfiMenu } from "react-icons/tfi";
+import { IoCloseSharp } from "react-icons/io5";
 import AnimatedThemeToggle from "../../Theme/AnimatedThemeToggle";
 
 const Navbar = () => {
@@ -50,25 +52,36 @@ const Navbar = () => {
       </NavLink>
       <NavLink
         onClick={() => handleCloseDrower()}
-        to="/addItems"
-        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
-      >
-        <FiPlusCircle /> Add Item
-      </NavLink>
-      <NavLink
-        onClick={() => handleCloseDrower()}
         to="/allrecovered"
-        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
+        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300 lg:hidden"
       >
-        <FiCheckCircle /> Recovered
+        <FiCheckCircle /> All Recovered
       </NavLink>
-      <NavLink
-        onClick={() => handleCloseDrower()}
-        to="/myitems"
-        className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
-      >
-        <FiFolder /> My Items
-      </NavLink>
+      {user && (
+        <>
+          <NavLink
+            onClick={() => handleCloseDrower()}
+            to="/addItems"
+            className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
+          >
+            <FiPlusCircle /> Add Item
+          </NavLink>
+          <NavLink
+            onClick={() => handleCloseDrower()}
+            to="/myrecovered"
+            className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
+          >
+            <FiCheckCircle /> My Recovered
+          </NavLink>
+          <NavLink
+            onClick={() => handleCloseDrower()}
+            to="/myitems"
+            className="navlink flex items-center gap-2 text-lg hover:text-primary duration-300"
+          >
+            <FiFolder /> My Items
+          </NavLink>
+        </>
+      )}
       <NavLink
         onClick={() => handleCloseDrower()}
         to="/about"
@@ -84,6 +97,9 @@ const Navbar = () => {
       <div className="navbar max-w-7xl mx-auto px-0">
         {/* Logo */}
         <div className="navbar-start">
+          <label htmlFor="profile-drawer" className="lg:hidden mr-4">
+            <TfiMenu size={20} />
+          </label>
           <Link
             to="/"
             className="text-2xl font-bold text-primary cursor-pointer"
@@ -107,10 +123,22 @@ const Navbar = () => {
             Lost & Found
           </NavLink>
           <NavLink
+            to="/allrecovered"
+            className="navlink text-lg hover:text-primary duration-300 w-fit"
+          >
+            All Recovered
+          </NavLink>
+          <NavLink
             to="/about"
             className="navlink text-lg hover:text-primary duration-300 w-fit"
           >
             About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="navlink text-lg hover:text-primary duration-300 w-fit"
+          >
+            Contact
           </NavLink>
         </div>
 
@@ -136,12 +164,15 @@ const Navbar = () => {
               </label>
             </div>
           ) : (
-            <Link
-              to="/login"
-              className="btn btn-sm bg-primary text-white hover:bg-primary-focus"
-            >
-              Login
-            </Link>
+            <div className="flex items-center justify-center gap-4">
+              <AnimatedThemeToggle />
+              <Link
+                to="/login"
+                className="btn btn-sm md:btn-md bg-primary text-white hover:bg-primary-focus"
+              >
+                Login
+              </Link>
+            </div>
           )}
         </div>
       </div>
@@ -150,7 +181,10 @@ const Navbar = () => {
       <input id="profile-drawer" type="checkbox" className="drawer-toggle " />
       <div className="drawer-side z-[999]">
         <label htmlFor="profile-drawer" className="drawer-overlay"></label>
-        <div className="menu p-4 lg:p-6 w-60 lg:w-80 min-h-full bg-base-200 text-base-content space-y-4">
+        <div className="menu p-4 lg:p-6 w-60 lg:w-80 min-h-full bg-base-200 text-base-content space-y-4 relative">
+        <label htmlFor="profile-drawer" className="lg:hidden mr-4 absolute top-4 right-0">
+          <IoCloseSharp size={20} color="#ffffff" />
+        </label>
           <div className="flex flex-col items-center space-y-2">
             <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-primary">
               <img

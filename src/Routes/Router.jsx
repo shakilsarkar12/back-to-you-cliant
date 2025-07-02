@@ -13,6 +13,8 @@ import AllRecoveredItems from "../Pages/AllRecoveredItems/AllRecoveredItems";
 import Private from "../Private/Private";
 import About from "../Pages/About/About";
 import Profile from "../Pages/Profile/Profile";
+import Contact from "../Pages/Contact/Contact";
+import MyRecoveredItems from "../Pages/MyRecovered/MyRecovered";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />
+      },
+      {
+        path: "/contact",
+        element: <Contact />
+      },
+      {
+        path: "/allrecovered",
+        element: <AllRecoveredItems />
       },
       {
         path: "/addItems",
@@ -81,10 +91,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/allrecovered",
+        path: "/myrecovered",
         element: (
           <Private>
-            <AllRecoveredItems />
+            <MyRecoveredItems />
           </Private>
         ),
       },

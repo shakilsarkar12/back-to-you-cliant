@@ -26,6 +26,7 @@
   --color-success: #2dd4bf;
   --color-warning: #f4a261;
   --color-error: #ef4444;
+  --color-base-200: #1f2937;
 }
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 

@@ -22,7 +22,7 @@ const AnimatedThemeToggle = () => {
       <div
         tabIndex={0}
         role="button"
-        className="btn btn-primary btn-outline flex gap-2 items-center"
+        className="btn btn-sm md:btn-md btn-primary btn-outline flex gap-2 items-center"
       >
         {theme === "light" && <FiSun />}
         {theme === "dark" && <FiMoon />}

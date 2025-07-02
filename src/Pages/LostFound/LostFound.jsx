@@ -21,7 +21,7 @@ const LostFound = () => {
   }, 400);
 
   const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState(""); // input box এর জন্য আলাদা state
+  const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [sort, setSort] = useState("newest");
@@ -34,7 +34,7 @@ const LostFound = () => {
     setProsses(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/items?search=${search}&category=${category}&location=${location}&sort=${sort}&page=${currentPage}&limit=${itemsPerPage}`
+        `https://back-to-you-server.vercel.app/items?search=${search}&category=${category}&location=${location}&sort=${sort}&page=${currentPage}&limit=${itemsPerPage}`
       );
       const data = await response.json();
       setItems(data.items);
