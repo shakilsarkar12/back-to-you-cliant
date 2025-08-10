@@ -44,7 +44,7 @@ const SiteStatistics = () => {
       animate={{ y: [50, 0], opacity: [0, 100] }}
       transition={{ duration: 0.8 }}
       ref={ref}
-      className="max-w-7xl mx-auto my-20 p-4 text-center"
+      className="max-w-7xl mx-auto my-20 text-center"
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}

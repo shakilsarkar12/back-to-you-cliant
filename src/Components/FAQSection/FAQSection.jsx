@@ -30,7 +30,7 @@ const FAQSection = () => {
   const handleToggle = () => setIsOpen(!isOpen);
 
   return (
-    <div className="max-w-4xl mx-auto my-16 space-y-4">
+    <div className="my-16 space-y-4">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

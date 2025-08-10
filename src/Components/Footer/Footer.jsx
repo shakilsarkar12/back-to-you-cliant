@@ -11,7 +11,7 @@ import ScrollTo from "../ScrollTo/ScrollTo";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 dark:bg-accent border-t border-gray-100 mt-12">
+    <footer className="bg-gray-50 dark:bg-accent border-t border-gray-100 dark:border-none mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -72,7 +72,6 @@ const Footer = () => {
             </ul>
           </div>
 
-
           <div>
             <h3 className="text-sm font-semibold text-neutral tracking-wider uppercase mb-4">
               Connect
@@ -110,7 +109,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center">
           <p className="text-neutral text-sm">
             &copy; {new Date().getFullYear()} BackToYou. All rights reserved.
           </p>
